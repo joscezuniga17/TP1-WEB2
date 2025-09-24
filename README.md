@@ -1,6 +1,6 @@
 # TPE1-WEB2
 
-INTEGRANTES:
+*Integrantes
 
 
 1.Joscelyn Agustina Zuñiga  
