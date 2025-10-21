@@ -54,15 +54,49 @@ CREATE TABLE `canciones` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `usuarios`
+-- Estructura de tabla para la tabla `usuarios` (MODIFICADA para LOGIN/ADMIN)
 --
 
+-- Se usa DROP/CREATE para asegurar que los nuevos campos estén correctos y no haya conflictos con los índices.
+-- La definición original de la tabla usuarios era: CREATE TABLE `usuarios` (`id_usuario` int(11) NOT NULL, `nombre` varchar(100) NOT NULL, `email` varchar(150) NOT NULL, `dni` float NOT NULL, `nacimiento` date NOT NULL)
+DROP TABLE IF EXISTS `usuarios`;
+
 CREATE TABLE `usuarios` (
-  `id_usuario` int(11) NOT NULL,
-  `nombre` varchar(100) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `dni` float NOT NULL,
-  `nacimiento` date NOT NULL
+    `id_usuario` INT(11) NOT NULL,
+    `nombre` VARCHAR(100) NOT NULL,
+    `email` VARCHAR(150) NOT NULL UNIQUE,
+    `password` VARCHAR(255) NOT NULL, -- CAMPO AÑADIDO: Contraseña para el login
+    `rol` ENUM('admin', 'usuario') NOT NULL DEFAULT 'usuario', -- CAMPO AÑADIDO: Rol para acceso al panel
+    `dni` FLOAT DEFAULT NULL, -- Mantenemos los campos originales (DNI ahora puede ser NULL)
+    `nacimiento` DATE DEFAULT NULL -- Mantenemos los campos originales (nacimiento ahora puede ser NULL)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `categorias` (NUEVA: Lado 1 de la relación)
+--
+
+CREATE TABLE `categorias` (
+    `id_categoria` INT AUTO_INCREMENT PRIMARY KEY,
+    `nombre` VARCHAR(255) NOT NULL,
+    `descripcion` TEXT,
+    `imagen` VARCHAR(255) -- Para almacenar URL de la imagen
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `items` (NUEVA: Lado N de la relación)
+--
+
+CREATE TABLE `items` (
+    `id_item` INT AUTO_INCREMENT PRIMARY KEY,
+    `id_categoria` INT NOT NULL,
+    `nombre` VARCHAR(255) NOT NULL,
+    `descripcion` TEXT,
+    `imagen` VARCHAR(255), -- Para almacenar URL de la imagen
+    FOREIGN KEY (`id_categoria`) REFERENCES `categorias`(`id_categoria`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -121,6 +155,14 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `canciones`
   ADD CONSTRAINT `canciones_ibfk_1` FOREIGN KEY (`id_autor`) REFERENCES `autor` (`id_autor`);
+
+--
+-- Insertar un usuario administrador de prueba (REQUERIDO)
+-- Usuario: "webadmin", Contraseña: "admin"
+--
+INSERT INTO `usuarios` (`nombre`, `email`, `password`, `rol`)
+VALUES ('Administrador Web', 'webadmin', MD5('admin'), 'admin');
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
