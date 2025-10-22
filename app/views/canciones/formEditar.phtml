@@ -1,0 +1,20 @@
+<h2>Editar canción</h2>
+
+<form action="actualizar" method="POST">
+    <input type="hidden" name="id" value="<?= $cancion->id_cancion ?>">
+    <label>Nombre:</label><input type="text" name="nombre" value="<?= htmlspecialchars($cancion->nombre_cancion) ?>"><br>
+    <label>Año:</label><input type="number" name="anio" value="<?= htmlspecialchars($cancion->anio) ?>"><br>
+    <label>Álbum:</label><input type="text" name="album" value="<?= htmlspecialchars($cancion->album) ?>"><br>
+    <label>Duración:</label><input type="text" name="duracion" value="<?= htmlspecialchars($cancion->duracion) ?>"><br>
+    <label>Mood:</label><input type="text" name="mood" value="<?= htmlspecialchars($cancion->mood_cancion) ?>"><br>
+    <label>Género:</label><input type="text" name="genero" value="<?= htmlspecialchars($cancion->genero_musical) ?>"><br>
+    <label>Autor:</label>
+    <select name="id_autor">
+        <?php foreach ($autores as $a): ?>
+            <option value="<?= $a->id_autor ?>" <?= $a->id_autor == $cancion->id_autor ? 'selected' : '' ?>>
+                <?= htmlspecialchars($a->nombre) ?>
+            </option>
+        <?php endforeach ?>
+    </select><br>
+    <button type="submit">Actualizar</button>
+</form>

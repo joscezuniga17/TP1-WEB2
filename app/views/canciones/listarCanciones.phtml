@@ -1,0 +1,42 @@
+<?php include './app/views/templates/header.phtml'; ?>
+
+<h1>🎵 Lista de canciones</h1>
+
+<a href="/dashboard/WEB2/TP2/index.php?action=agregar">➕ Agregar nueva canción</a>
+
+<?php include 'app/views/templates/header.phtml'; ?>
+
+<h2>Lista de Canciones</h2>
+
+<?php if (!empty($canciones)): ?>
+    <table border="1" cellpadding="5">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Año</th>
+                <th>Álbum</th>
+                <th>Duración</th>
+                <th>Mood</th>
+                <th>Género</th>
+                <th>Autor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($canciones as $cancion): ?>
+                <tr>
+                    <td><?= htmlspecialchars($cancion->nombre_cancion) ?></td>
+                    <td><?= htmlspecialchars($cancion->anio) ?></td>
+                    <td><?= htmlspecialchars($cancion->album) ?></td>
+                    <td><?= htmlspecialchars($cancion->duracion) ?></td>
+                    <td><?= htmlspecialchars($cancion->mood_cancion) ?></td>
+                    <td><?= htmlspecialchars($cancion->genero_musical) ?></td>
+                    <td><?= htmlspecialchars($cancion->id_autor) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php else: ?>
+    <p>No hay canciones cargadas todavía.</p>
+<?php endif; ?>
+
+<?php include 'app/views/templates/footer.phtml'; ?>
