@@ -1,4 +1,4 @@
-# TPE1-WEB2
+# TPE2-WEB2
 
 *Integrantes
 
@@ -21,11 +21,16 @@ El propósito de la pagina es la creación de playlist colaborativas, donde los 
 Esta plataforma es ideal para compartir gustos musicales, organizar musica para fiestas o simplemente descubrir nuevas canciones a través de listas creadas por otros usuarios. Los usuarios podrán registrarse, crear sus propias playlist y subir canciones, siendo parte asi de una misma comunidad musical.
 
 
+// ¿Cómo desplegar el sitio? //
+En local (con XAMPP o WAMP):
 
-*DIAGRAMA ENTIDAD RELACIÓN(DER):
+*Instala XAMPP o WAMP.
 
-<img width="629" height="526" alt="image" src="https://github.com/user-attachments/assets/730be552-a5f6-42e2-84de-8aac6ec0e6f6" />
+*Copiá tu proyecto en la carpeta: C:\xampp\htdocs\ (XAMPP)
 
+*Encendé Apache y MySQL desde el panel de control.
+
+*Accedé al sitio desde: http://localhost/nombre-de-tu-carpeta
 
 
 
